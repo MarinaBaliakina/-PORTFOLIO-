@@ -749,8 +749,7 @@ html::-webkit-scrollbar-thumb {
   object-fit: cover;
 }
 
-.screen.fill-video iframe,
-.screen.fill-video video {
+.screen.fill-video iframe {
   left: 50%;
   width: auto;
   min-width: 100%;
@@ -758,6 +757,17 @@ html::-webkit-scrollbar-thumb {
   aspect-ratio: 9 / 16;
   object-fit: cover;
   transform: translateX(-50%);
+}
+
+.screen.fill-video video {
+  inset: 0;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center;
+  transform: none;
 }
 
 .has-custom-video iframe {
