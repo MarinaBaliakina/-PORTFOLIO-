@@ -2658,3 +2658,50 @@ cite span {
     padding-top: 104px;
   }
 }
+
+/* Final mobile/tablet case navigation */
+@media (max-width: 900px) {
+  .case-nav .nav-home {
+    display: none;
+  }
+
+  .case-nav {
+    left: 14px;
+    gap: 0;
+  }
+
+  .case-nav .nav-portfolio-toggle {
+    width: 46px;
+    min-width: 46px;
+    height: 46px;
+    min-height: 46px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .case-nav .nav-label,
+  .case-nav .nav-chevron,
+  .case-nav .nav-portfolio-toggle > i {
+    display: none !important;
+  }
+
+  .case-nav .hamburger-lines {
+    display: inline-flex !important;
+    width: 18px;
+    height: 14px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .case-nav .hamburger-lines span {
+    display: block !important;
+    width: 100%;
+    height: 2px;
+    padding: 0;
+    border-radius: 999px;
+    background: currentColor !important;
+    font-size: 0;
+    line-height: 0;
+  }
+}

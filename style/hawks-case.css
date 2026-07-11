@@ -2306,3 +2306,106 @@ cite {
     padding-top: 104px;
   }
 }
+
+/* Final mobile/tablet case navigation and web management layout */
+@media (max-width: 980px) {
+  .case-nav .nav-home {
+    display: none;
+  }
+
+  .case-nav {
+    left: 14px;
+    gap: 0;
+  }
+
+  .case-nav .nav-portfolio-toggle {
+    width: 46px;
+    min-width: 46px;
+    height: 46px;
+    min-height: 46px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .case-nav .nav-label,
+  .case-nav .nav-chevron,
+  .case-nav .nav-portfolio-toggle > i {
+    display: none !important;
+  }
+
+  .case-nav .hamburger-lines {
+    display: inline-flex !important;
+    width: 18px;
+    height: 14px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .case-nav .hamburger-lines span {
+    display: block !important;
+    width: 100%;
+    height: 2px;
+    padding: 0;
+    border-radius: 999px;
+    background: currentColor !important;
+    font-size: 0;
+    line-height: 0;
+  }
+
+  #website .discipline-grid,
+  #website .discipline-grid.reverse {
+    display: grid;
+    width: min(100%, 760px);
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 34px;
+  }
+
+  #website .discipline-copy {
+    width: min(100%, 620px);
+    text-align: center;
+  }
+
+  #website .discipline-copy p {
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #website .managed-site-link {
+    justify-content: center;
+  }
+
+  #website .laptop {
+    width: min(100%, 680px);
+    max-width: calc(100vw - 40px);
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 620px) {
+  #website .discipline-grid,
+  #website .discipline-grid.reverse {
+    width: 100%;
+    gap: 28px;
+  }
+
+  #website .laptop {
+    width: min(100%, 420px);
+    max-width: calc(100vw - 32px);
+    padding-bottom: 24px;
+  }
+
+  #website .laptop-screen {
+    border-width: 8px;
+    border-bottom-width: 13px;
+    border-radius: 12px 12px 7px 7px;
+  }
+
+  #website .laptop-base {
+    width: 106%;
+    height: 16px;
+    bottom: 8px;
+  }
+}
