@@ -1699,6 +1699,10 @@ html::-webkit-scrollbar-thumb {
   color: #8c52ff;
 }
 
+.design-showcase .video-embed {
+  box-shadow: 0 10px 0 rgba(140, 82, 255, 0.12);
+}
+
 .case-text {
   position: relative;
   display: flex;
@@ -3173,6 +3177,97 @@ html::-webkit-scrollbar-thumb {
   }
 }
 
+/* Mobile/tablet only: center the About Me composition. */
+@media (max-width: 900px) {
+  .about-inner {
+    margin-left: auto;
+    margin-right: auto;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .about-me .intro,
+  .about-me .intro p {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* Mobile/tablet menu polish */
+@media (max-width: 980px) {
+  .nav-portfolio-links {
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 104px clamp(22px, 6vw, 54px) 46px;
+    background:
+      radial-gradient(circle at 18% 10%, rgba(255, 199, 0, 0.18), transparent 28%),
+      radial-gradient(circle at 86% 82%, rgba(140, 82, 255, 0.14), transparent 32%),
+      rgba(255, 255, 255, 0.96);
+  }
+
+  .nav-portfolio-links a {
+    display: flex;
+    width: min(100%, 430px);
+    min-height: 56px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0 18px 0 20px;
+    border: 1px solid rgba(140, 82, 255, 0.22);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.74);
+    box-shadow: 0 16px 34px rgba(42, 22, 88, 0.08);
+    color: #7b43f4;
+    font-size: clamp(14px, 3.9vw, 19px);
+    font-weight: 720;
+    letter-spacing: 0.08em;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .nav-portfolio-links a::after {
+    content: "→";
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(140, 82, 255, 0.1);
+    color: #8c52ff;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1;
+    transform: translateX(0);
+    transition: transform 180ms ease, background 180ms ease;
+  }
+
+  .nav-portfolio-links a:hover::after,
+  .nav-portfolio-links a:focus-visible::after {
+    background: rgba(255, 199, 0, 0.34);
+    transform: translateX(4px);
+  }
+
+  .nav-portfolio-links .nav-link-home,
+  .nav-portfolio-links a[href="#contact"],
+  .nav-portfolio-links a[href="../index.html#contact"] {
+    border-color: rgba(255, 199, 0, 0.48);
+    background: rgba(255, 199, 0, 0.11);
+  }
+
+  .nav-portfolio-links .nav-link-home::after,
+  .nav-portfolio-links a[href="#contact"]::after,
+  .nav-portfolio-links a[href="../index.html#contact"]::after {
+    content: none;
+  }
+}
+
+@media (min-width: 901px) {
+  .nav-portfolio-links .nav-link-home {
+    display: none !important;
+  }
+}
+
 /* Desktop portfolio hover restore */
 @media (min-width: 901px) {
   .nav-portfolio:hover .nav-portfolio-links,
@@ -3247,5 +3342,64 @@ html::-webkit-scrollbar-thumb {
     opacity: 1 !important;
     pointer-events: auto !important;
     visibility: visible;
+  }
+}
+
+/* Final mobile/tablet menu button styling */
+@media (max-width: 980px) {
+  .nav-portfolio-links a {
+    min-height: 52px;
+    padding: 0 16px 0 20px;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    border: 2px solid rgba(140, 82, 255, 0.42);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: 0 10px 24px rgba(140, 82, 255, 0.08);
+    color: #8c52ff;
+  }
+
+  .nav-portfolio-links a::after {
+    flex: 0 0 25px;
+    width: 25px;
+    height: 25px;
+    margin-right: 12px;
+    border: 1.5px solid rgba(140, 82, 255, 0.34);
+    background: transparent;
+    color: #8c52ff;
+  }
+
+  .nav-portfolio-links .nav-link-home,
+  .nav-portfolio-links a[href="#contact"],
+  .nav-portfolio-links a[href="../index.html#contact"] {
+    border-color: rgba(140, 82, 255, 0.42);
+    background: rgba(255, 255, 255, 0.86);
+  }
+
+  .nav-portfolio-links {
+    background: rgba(255, 255, 255, 0.97);
+  }
+
+  .nav-portfolio-links a:hover::after,
+  .nav-portfolio-links a:focus-visible::after {
+    background: rgba(140, 82, 255, 0.1);
+  }
+}
+
+/* Final mobile/tablet contact row fix */
+@media (max-width: 980px) {
+  .nav-portfolio-links {
+    padding-bottom: max(64px, env(safe-area-inset-bottom));
+  }
+
+  .nav-portfolio-links .nav-link-home:hover,
+  .nav-portfolio-links .nav-link-home:focus-visible,
+  .nav-portfolio-links a[href="#contact"]:hover,
+  .nav-portfolio-links a[href="#contact"]:focus-visible,
+  .nav-portfolio-links a[href="../index.html#contact"]:hover,
+  .nav-portfolio-links a[href="../index.html#contact"]:focus-visible {
+    background: rgba(255, 255, 255, 0.86);
+    color: #8c52ff;
+    border-color: rgba(140, 82, 255, 0.42);
   }
 }

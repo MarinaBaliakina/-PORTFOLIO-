@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <title>Humber Polytechnic Social Media Case Study</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/jpeg" href="../assets/profile.jpg">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/favicon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="../style/smm-case.css?v=index-local-video-fit-20260710">
+  <link rel="stylesheet" href="../style/smm-case.css?v=mobile-menu-contact-fix-20260711">
 </head>
 
 <body>
@@ -22,6 +23,7 @@
         <span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
       </button>
       <div class="nav-portfolio-links">
+        <a href="../index.html" class="nav-link-home">Home</a>
         <a href="../index.html#smm">Social</a>
         <a href="../index.html#content">Content</a>
         <a href="../index.html#videography">Video</a>
@@ -89,20 +91,28 @@
             <div class="growth-screens">
               <div class="growth-side">
                 <h4>Before</h4>
-                <div class="growth-shot-row">
-                  <div class="growth-shot" data-growth-rotator data-growth-group="before" data-growth-posts="1,3,2,4">
+                <div class="growth-shot-row" data-growth-row data-growth-group="before" data-growth-posts="1,3,2,4">
+                  <div class="growth-shot" data-growth-slot="0">
                     <img src="../assets/smm-screenshots/before/post1-1.jpg" alt="Before Instagram post performance screenshot">
                     <img src="../assets/smm-screenshots/before/post1-2.jpg" alt="Before Instagram post views screenshot">
+                  </div>
+                  <div class="growth-shot growth-shot--desktop-only" data-growth-slot="1">
+                    <img src="../assets/smm-screenshots/before/post3-1.jpg" alt="Before Instagram post performance screenshot">
+                    <img src="../assets/smm-screenshots/before/post3-2.jpg" alt="Before Instagram post views screenshot">
                   </div>
                 </div>
               </div>
 
               <div class="growth-side is-after">
                 <h4>After</h4>
-                <div class="growth-shot-row">
-                  <div class="growth-shot" data-growth-rotator data-growth-group="after" data-growth-posts="3,1,4,5,2">
+                <div class="growth-shot-row" data-growth-row data-growth-group="after" data-growth-posts="3,1,4,5,2">
+                  <div class="growth-shot" data-growth-slot="0">
                     <img src="../assets/smm-screenshots/after/post3-1.jpg" alt="After Instagram reel performance screenshot">
                     <img src="../assets/smm-screenshots/after/post3-2.jpg" alt="After Instagram reel views screenshot">
+                  </div>
+                  <div class="growth-shot growth-shot--desktop-only" data-growth-slot="1">
+                    <img src="../assets/smm-screenshots/after/post1-1.jpg" alt="After Instagram reel performance screenshot">
+                    <img src="../assets/smm-screenshots/after/post1-2.jpg" alt="After Instagram reel views screenshot">
                   </div>
                 </div>
               </div>
@@ -378,40 +388,69 @@
       show(0);
     });
 
-    const growthRotators = Array.from(document.querySelectorAll("[data-growth-rotator]"))
-      .map((card) => {
-        const group = card.dataset.growthGroup;
-        const posts = (card.dataset.growthPosts || "")
+    const growthDesktopQuery = window.matchMedia("(min-width: 901px)");
+    const growthRows = Array.from(document.querySelectorAll("[data-growth-row]"))
+      .map((row) => {
+        const group = row.dataset.growthGroup;
+        const posts = (row.dataset.growthPosts || "")
           .split(",")
           .map((post) => post.trim())
           .filter(Boolean);
-        const images = card.querySelectorAll("img");
+        const shots = Array.from(row.querySelectorAll(".growth-shot"));
 
-        if (!group || posts.length < 2 || images.length < 2) return null;
+        if (!group || posts.length < 2 || !shots.length) return null;
 
-        return { card, group, posts, images, index: 0 };
+        return { row, group, posts, shots, offset: 0 };
       })
       .filter(Boolean);
 
-    if (growthRotators.length) {
+    const setGrowthPost = (shot, group, post) => {
+      const images = shot.querySelectorAll("img");
+      if (images.length < 2) return;
+      images[0].src = `../assets/smm-screenshots/${group}/post${post}-1.jpg`;
+      images[1].src = `../assets/smm-screenshots/${group}/post${post}-2.jpg`;
+    };
+
+    const getVisibleGrowthShots = (growthRow) => (
+      growthDesktopQuery.matches
+        ? growthRow.shots.slice(0, 2)
+        : growthRow.shots.slice(0, 1)
+    );
+
+    const renderGrowthRow = (growthRow) => {
+      getVisibleGrowthShots(growthRow).forEach((shot, slotIndex) => {
+        const post = growthRow.posts[(growthRow.offset + slotIndex) % growthRow.posts.length];
+        setGrowthPost(shot, growthRow.group, post);
+      });
+    };
+
+    growthRows.forEach(renderGrowthRow);
+
+    if (growthRows.length) {
       window.setInterval(() => {
-        growthRotators.forEach((rotator, rotatorIndex) => {
-          rotator.index = (rotator.index + 1) % rotator.posts.length;
-          const post = rotator.posts[rotator.index];
+        const isDesktop = growthDesktopQuery.matches;
+        const step = isDesktop ? 2 : 1;
+        const updates = [];
+
+        growthRows.forEach((growthRow) => {
+          growthRow.offset = (growthRow.offset + step) % growthRow.posts.length;
+          getVisibleGrowthShots(growthRow).forEach((shot, slotIndex) => {
+            const post = growthRow.posts[(growthRow.offset + slotIndex) % growthRow.posts.length];
+            updates.push({ shot, growthRow, post });
+          });
+        });
+
+        updates.forEach(({ shot }) => shot.classList.add("is-switching"));
+
+        window.setTimeout(() => {
+          updates.forEach(({ shot, growthRow, post }) => {
+            setGrowthPost(shot, growthRow.group, post);
+          });
 
           window.setTimeout(() => {
-            rotator.card.classList.add("is-switching");
-
-            window.setTimeout(() => {
-              rotator.images[0].src = `../assets/smm-screenshots/${rotator.group}/post${post}-1.jpg`;
-              rotator.images[1].src = `../assets/smm-screenshots/${rotator.group}/post${post}-2.jpg`;
-            }, 180);
-
-            window.setTimeout(() => {
-              rotator.card.classList.remove("is-switching");
-            }, 420);
-          }, rotatorIndex * 220);
-        });
+            updates.forEach(({ shot }) => shot.classList.remove("is-switching"));
+          }, 240);
+        }, 180);
       }, 4500);
     }
 
@@ -574,7 +613,7 @@
   </script>
 
   <script src="../scripts/scrollbar.js"></script>
-  <script src="../scripts/portfolio-nav.js?v=index-local-video-fit-20260710"></script>
-  <script src="../scripts/reveal.js?v=index-local-video-fit-20260710"></script>
+  <script src="../scripts/portfolio-nav.js?v=mobile-menu-contact-fix-20260711"></script>
+  <script src="../scripts/reveal.js?v=mobile-menu-contact-fix-20260711"></script>
 </body>
 </html>
