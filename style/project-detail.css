@@ -3623,4 +3623,50 @@ h1 {
     font-size: 0;
     line-height: 0;
   }
+
+  .nav-portfolio:not(.is-open) .nav-portfolio-links {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden;
+  }
+
+  .nav-portfolio.is-open .nav-portfolio-links {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible;
+  }
+
+  .process-item {
+    grid-template-columns: minmax(0, 1fr) !important;
+    justify-items: center;
+    gap: 18px;
+    text-align: center;
+  }
+
+  .process-number {
+    width: 58px;
+    height: 38px;
+    justify-self: center;
+    margin: 0 auto;
+    color: #fff;
+    background: #ffc700;
+  }
+
+  .process-content {
+    width: 100%;
+    text-align: center;
+  }
+
+  .process-content p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .process-content .placeholder-grid,
+  .process-content .feature-grid,
+  .process-content .tool-grid,
+  .process-content .overview-grid,
+  .process-content .vinyl-art-grid {
+    justify-content: center;
+  }
 }

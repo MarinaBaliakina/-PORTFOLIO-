@@ -2613,6 +2613,10 @@ html::-webkit-scrollbar-thumb {
     white-space: normal;
   }
 
+  .content .section-title {
+    font-size: clamp(24px, 7.4vw, 34px);
+  }
+
   .case {
     padding-left: 10px;
     padding-right: 10px;
@@ -3221,5 +3225,17 @@ html::-webkit-scrollbar-thumb {
     background: currentColor !important;
     font-size: 0;
     line-height: 0;
+  }
+
+  .nav-portfolio:not(.is-open) .nav-portfolio-links {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden;
+  }
+
+  .nav-portfolio.is-open .nav-portfolio-links {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible;
   }
 }
